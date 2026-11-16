@@ -473,7 +473,7 @@ class MainActivity : Activity() {
         val card = Namba.parseCard(raw)
 
         if (card != null) {
-            open(card, "main")
+            openPerson(card, "main")
             return
         }
 
@@ -543,7 +543,7 @@ class MainActivity : Activity() {
 
     private fun showNumbers(numbers: List<String>) {
         if (numbers.size == 1) {
-            open(Person(0L, "", "", numbers[0], "", "", ""), "main")
+            openPerson(Person(0L, "", "", numbers[0], "", "", ""), "main")
         } else {
             found = numbers
             screen = "found"
@@ -552,7 +552,7 @@ class MainActivity : Activity() {
         }
     }
 
-    private fun open(p: Person, back: String) {
+    private fun openPerson(p: Person, back: String) {
         viewing = p
         screen = "person"
         backTo = back
@@ -708,7 +708,7 @@ class MainActivity : Activity() {
         }
 
         for (p in list) {
-            c.addView(personRow(p) { open(p, "saved") })
+            c.addView(personRow(p) { openPerson(p, "saved") })
         }
     }
 
@@ -721,7 +721,7 @@ class MainActivity : Activity() {
 
         for (n in found) {
             val p = Person(0L, "", "", n, "", "", "")
-            c.addView(personRow(p) { open(p, "found") })
+            c.addView(personRow(p) { openPerson(p, "found") })
         }
 
         c.addView(button("Keep all in my list", teal) {
@@ -825,7 +825,7 @@ class MainActivity : Activity() {
         val hints = HashMap<EncodeHintType, Any>()
         hints[EncodeHintType.CHARACTER_SET] = "UTF-8"
         hints[EncodeHintType.MARGIN] = 1
-        hints[EncodeHintType.ERROR_CORRECTION_LEVEL] = ErrorCorrectionLevel.M
+        hints[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.M
 
         val matrix = QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, size, size, hints)
         val w = matrix.width
